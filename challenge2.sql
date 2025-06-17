@@ -26,11 +26,10 @@ GROUP BY a.id
 having COUNT(r.role) > 5;
 
 -- 8. Mendapatkan director paling produktif sepanjang masa
-select d.first_name, d.last_name, count(mg.genre) as genres from movies m
+select d.first_name || ' ' || d.last_name as director_name, count(m.name) as count_movie from movies m
 join movies_directors md on md.movie_id = m.id
-join movies_genres mg on mg.movie_id = m.id
 join directors d on d.id = md.director_id
-GROUP BY d.id ORDER BY genres desc limit 1;
+GROUP BY d.id ORDER BY count_movie desc limit 1;
 
 -- 9. Mendapatkan tahun tersibuk sepanjang masa
 SELECT year, COUNT(year) AS count_movies
