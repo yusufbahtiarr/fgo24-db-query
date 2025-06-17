@@ -6,7 +6,7 @@ join directors d on d.id = md.director_id
 limit 50;
 
 -- 5. Melakukan join movie dan roles berdasarkan table actors.
-select a.first_name, a.last_name, r.role, m.name from actors a
+select a.first_name, a.last_name, r.role, m.name as title from actors a
 join roles r on r.actor_id = a.id
 join movies m on m.id = r.movie_id
 limit 50;
