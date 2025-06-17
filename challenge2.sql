@@ -17,13 +17,28 @@ join movies_directors md on md.movie_id = m.id
 join movies_genres mg on mg.movie_id = m.id
 join directors d on d.id = md.director_id 
 GROUP BY d.id;
+
 -- 7. Mendapatkan data actor yang memiliki roles lebih dari 5
-select * from (select a.first_name, a.last_name, count(r.role) as role_count from actors a
+select a.first_name, a.last_name, count(r.role) as role_count from actors a
 join roles r on r.actor_id = a.id
 join movies m on m.id = r.movie_id 
-GROUP BY a.id) where role_count > 5;
+GROUP BY a.id
+having COUNT(r.role) > 5;
+
 -- 8. Mendapatkan director paling produktif sepanjang masa
+select d.first_name, d.last_name, count(mg.genre) as genres from movies m
+join movies_directors md on md.movie_id = m.id
+join movies_genres mg on mg.movie_id = m.id
+join directors d on d.id = md.director_id
+GROUP BY d.id ORDER BY genres desc limit 1;
 
 -- 9. Mendapatkan tahun tersibuk sepanjang masa
+SELECT year, COUNT(year) AS count_movies
+FROM movies
+GROUP BY year ORDER BY count_movies desc limit 1;
 
--- 10. Mendapatkan movies dnegan genres yang dibuatkan menjadi 1 column (value dipisahkan dengan comma) dengan menggunakan string_agg
+-- 10. Mendapatkan movies dengan genres yang dibuatkan menjadi 1 column (value dipisahkan dengan comma) dengan menggunakan string_agg
+SELECT m.name, string_agg(mg.genre, ', ') AS movie_genre
+FROM movies m
+JOIN movies_genres mg ON mg.movie_id = m.id
+GROUP BY m.id;
