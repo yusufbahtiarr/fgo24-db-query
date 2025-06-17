@@ -22,7 +22,6 @@ select * from (select a.first_name, a.last_name, count(r.role) as role_count fro
 join roles r on r.actor_id = a.id
 join movies m on m.id = r.movie_id 
 GROUP BY a.id) where role_count > 5;
-select * from actors;
 -- 8. Mendapatkan director paling produktif sepanjang masa
 
 -- 9. Mendapatkan tahun tersibuk sepanjang masa
